@@ -3,7 +3,7 @@ import React from 'react'
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import IssueActions from './IssueActions'
-export default function loading() {
+export default function IssuesLoadingPage() {
     const issues = [1, 2, 3, 4, 5];
   return (
     <div>
