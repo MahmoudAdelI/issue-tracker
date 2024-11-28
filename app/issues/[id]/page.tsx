@@ -12,7 +12,6 @@ export default async function IssueDetailPage({ params }:Props) {
     const issue = await prisma.issue.findUnique({
         where: {id: parseInt(id)}
     });
-
     if(!issue) notFound();
   return (
     <div>
