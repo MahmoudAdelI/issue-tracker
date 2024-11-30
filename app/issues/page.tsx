@@ -3,6 +3,7 @@ import prisma from '@/prisma/client';
 import { Table } from '@radix-ui/themes';
 import IssueActions from './IssueActions';
 
+export const dynamic = 'force-dynamic'; //make the page dynamic instead of being an SSG page
 export default async function IssuesPage() {
   const issues = await prisma.issue.findMany();
 
@@ -37,5 +38,5 @@ export default async function IssuesPage() {
         </Table.Body>
       </Table.Root>
       </div>
-  )
-}
+  );
+};

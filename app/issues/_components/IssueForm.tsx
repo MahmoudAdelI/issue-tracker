@@ -38,7 +38,8 @@ export default function IssueForm({issue}: Props) {
             } else {
                 await axios.post('/api/issues', data);
             }
-            router.push('/issues')
+            router.push('/issues');
+            router.refresh(); //to refresh the client cache
         } catch (error) {
             setSubmitting(false);
             setError('An unexpected error occurred');
