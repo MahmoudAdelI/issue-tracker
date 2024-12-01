@@ -4,9 +4,11 @@ import { FaPenToSquare } from "react-icons/fa6";
 
 export default function EditIssueButton({issueId}:{issueId:number}) {
   return (
-    <Button>
+    <Link href={`/issues/edit/${issueId}`} className="contents">
+      <Button>
         <FaPenToSquare />
-        <Link href={`/issues/${issueId}/edit`}>Edit Issue</Link>
-    </Button>
+        Edit Issue
+      </Button>
+    </Link>
   )
 }

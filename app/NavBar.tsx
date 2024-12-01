@@ -7,7 +7,7 @@ import classnames from 'classnames';
 export default function NavBar() {
     const links = [
         {lable: 'Dashboard', href: '/'},
-        {lable: 'Issues', href: '/issues'}
+        {lable: 'Issues', href: '/issues/list'}
     ];
     const currentPath = usePathname();
   return (
