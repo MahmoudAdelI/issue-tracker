@@ -1,4 +1,5 @@
 'use client'
+import {Skeleton} from '@/app/components'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation';
 import { FaBug } from "react-icons/fa";
@@ -50,7 +51,7 @@ function NavLinks() {
 
 function AuthStatus() {
   const { status, data:session } = useSession();
-  if(status === 'loading') return null;
+  if(status === 'loading') return <Skeleton width='3rem'/>;
   if(status === 'unauthenticated')
     return <Link href='/api/auth/signin' className='nav-link'>Log In</Link>;
   
