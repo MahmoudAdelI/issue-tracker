@@ -5,9 +5,9 @@ import { usePathname } from 'next/navigation';
 import { FaBug } from "react-icons/fa";
 import classnames from 'classnames';
 import { Avatar, Box, Container, DropdownMenu, Flex, Text } from '@radix-ui/themes';
-import {useSession} from 'next-auth/react'
+import {useSession} from 'next-auth/react';
+
 export default function NavBar() {
-    
   return (
     <nav className='border-b mb-5 px-5 py-3'>
       <Container>
@@ -23,9 +23,8 @@ export default function NavBar() {
         </Flex>
       </Container>
     </nav>
-    
-  )
-}
+  );
+};
 
 function NavLinks() {
   const links = [
