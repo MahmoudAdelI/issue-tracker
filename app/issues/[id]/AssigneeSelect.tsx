@@ -1,40 +1,31 @@
 "use client";
+import { Skeleton } from "@/app/components";
 import { Issue, User } from "@prisma/client";
 import { Select } from "@radix-ui/themes";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { Skeleton } from "@/app/components";
 import toast, { Toaster } from "react-hot-toast";
 export default function AssigneeSelect({ issue }: { issue: Issue }) {
-  const {
-    data: users,
-    error,
-    isLoading,
-  } = useQuery<User[]>({
-    queryKey: ["users"],
-    queryFn: () => axios.get("/api/users").then((res) => res.data),
-    staleTime: 60 * 1000,
-    retry: 3,
-  });
+  const { data: users, error, isLoading } = useUsers();
 
   if (isLoading) return <Skeleton height="2rem" />;
   if (error) return null;
-
+  const assignIssue = async (userId: string) => {
+    //because we can't pass null in radix select item
+    const assignedToUserId = userId === "null" ? null : userId;
+    try {
+      await axios.patch(`/api/issues/${issue.id}`, {
+        assignedToUserId,
+      });
+    } catch (error) {
+      toast.error("Changes could not be saved");
+    }
+  };
   return (
     <>
       <Select.Root
         defaultValue={issue.assignedToUserId || "null"}
-        onValueChange={async (userId) => {
-          //because we can't pass null in radix select item
-          const assignedToUserId = userId === "null" ? null : userId;
-          try {
-            await axios.patch(`/api/issues/${issue.id}`, {
-              assignedToUserId,
-            });
-          } catch (error) {
-            toast.error("Changes could not be saved");
-          }
-        }}
+        onValueChange={assignIssue}
       >
         <Select.Trigger placeholder="Assign..." />
         <Select.Content>
@@ -53,3 +44,10 @@ export default function AssigneeSelect({ issue }: { issue: Issue }) {
     </>
   );
 }
+const useUsers = () =>
+  useQuery<User[]>({
+    queryKey: ["users"],
+    queryFn: () => axios.get("/api/users").then((res) => res.data),
+    staleTime: 3600 * 1000,
+    retry: 3,
+  });
