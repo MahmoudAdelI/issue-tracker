@@ -13,11 +13,11 @@ export default function IssueStatusFilter() {
   const router = useRouter();
   return (
     <Select.Root
+      //filtering issues...
       onValueChange={(status) => {
         const selectedStatus = status === "ALL" ? undefined : status; // test
         const query = selectedStatus ? `?status=${selectedStatus}` : "";
         router.push("/issues/list" + query);
-        //filtering issues...
       }}
     >
       <Select.Trigger placeholder="Filter by status..." />
