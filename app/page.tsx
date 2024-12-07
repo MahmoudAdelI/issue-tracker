@@ -1,5 +1,11 @@
 import Paginations from "./components/Paginations";
+type SearchParams = {
+  searchParams: Promise<{ page: string }>;
+};
+export default async function Home({ searchParams }: SearchParams) {
+  const { page } = await searchParams;
 
-export default function Home() {
-  return <Paginations issuesCount={100} perPageIssues={10} currentPage={2} />;
+  return (
+    <Paginations issuesCount={320} perPageIssues={10} currentPage={+page} />
+  );
 }
