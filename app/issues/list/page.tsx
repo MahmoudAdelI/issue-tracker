@@ -22,15 +22,25 @@ export default async function IssuesPage({ searchParams }: Props) {
     { lable: "Created", value: "createdAt", className: "hidden md:table-cell" },
   ];
   const SearchParams = await searchParams;
+
   const validStatuses = Object.values(Status);
   const status = validStatuses.includes(SearchParams.status)
     ? SearchParams.status
+    : undefined;
+
+  const orderBy = columns
+    .map((column) => column.value)
+    .includes(SearchParams.orderBy)
+    ? {
+        [SearchParams.orderBy]: "asc",
+      }
     : undefined;
 
   const issues = await prisma.issue.findMany({
     where: {
       status: status,
     },
+    orderBy: orderBy,
   });
 
   return (
