@@ -1,6 +1,5 @@
+import Paginations from "./components/Paginations";
 
 export default function Home() {
-  return (
-    <h1>Hello world</h1>
-  )
+  return <Paginations issuesCount={100} perPageIssues={10} currentPage={2} />;
 }
