@@ -82,7 +82,7 @@ function AuthStatus() {
             referrerPolicy="no-referrer"
           />
         </DropdownMenu.Trigger>
-        <DropdownMenu.Content>
+        <DropdownMenu.Content variant="soft">
           <DropdownMenu.Label>
             <Text size="2">{session?.user?.email}</Text>
           </DropdownMenu.Label>

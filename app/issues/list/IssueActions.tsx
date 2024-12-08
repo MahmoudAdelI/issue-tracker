@@ -6,7 +6,7 @@ export default function IssueActions() {
   return (
     <Flex mb="5" justify="between">
       <IssueStatusFilter />
-      <Button>
+      <Button variant="outline">
         <Link href="/issues/new">New Issue</Link>
       </Button>
     </Flex>

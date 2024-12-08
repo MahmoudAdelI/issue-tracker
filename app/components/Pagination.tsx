@@ -13,7 +13,7 @@ type Props = {
   perPageIssues: number;
   currentPage: number;
 };
-export default function Paginations({
+export default function Pagination({
   issuesCount,
   perPageIssues,
   currentPage,

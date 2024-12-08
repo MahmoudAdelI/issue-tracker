@@ -26,8 +26,8 @@ export default function IssueStatusFilter() {
         router.push("/issues/list" + query);
       }}
     >
-      <Select.Trigger placeholder="Filter by status..." />
-      <Select.Content>
+      <Select.Trigger placeholder="Filter by status..." variant="soft" />
+      <Select.Content variant="soft">
         {statuses.map((status) => (
           <Select.Item key={status.lable} value={status.value}>
             {status.lable}

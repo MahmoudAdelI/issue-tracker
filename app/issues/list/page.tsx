@@ -5,13 +5,14 @@ import IssueActions from "./IssueActions";
 import { Issue, Status } from "@prisma/client";
 import NextLink from "next/link";
 import { RiArrowUpSLine } from "react-icons/ri";
+import Pagination from "@/app/components/Pagination";
 
 export const dynamic = "force-dynamic"; //make the page dynamic instead of being an SSG page
 
-type Props = {
-  searchParams: Promise<{ status: Status; orderBy: keyof Issue }>;
+type SearchParams = {
+  searchParams: Promise<{ status: Status; orderBy: keyof Issue; page: string }>;
 };
-export default async function IssuesPage({ searchParams }: Props) {
+export default async function IssuesPage({ searchParams }: SearchParams) {
   const columns: {
     lable: string;
     value: keyof Issue;
@@ -27,7 +28,9 @@ export default async function IssuesPage({ searchParams }: Props) {
   const status = validStatuses.includes(SearchParams.status)
     ? SearchParams.status
     : undefined;
-
+  const where = {
+    status: status,
+  };
   const orderBy = columns
     .map((column) => column.value)
     .includes(SearchParams.orderBy)
@@ -35,12 +38,14 @@ export default async function IssuesPage({ searchParams }: Props) {
         [SearchParams.orderBy]: "asc",
       }
     : undefined;
-
+  const currentPage = +SearchParams.page || 1;
+  const perPageIssues = 5;
+  const issuesCount = await prisma.issue.count({ where });
   const issues = await prisma.issue.findMany({
-    where: {
-      status: status,
-    },
-    orderBy: orderBy,
+    where,
+    orderBy,
+    skip: (currentPage - 1) * perPageIssues,
+    take: perPageIssues,
   });
 
   return (
@@ -87,6 +92,11 @@ export default async function IssuesPage({ searchParams }: Props) {
           ))}
         </Table.Body>
       </Table.Root>
+      <Pagination
+        issuesCount={issuesCount}
+        perPageIssues={perPageIssues}
+        currentPage={currentPage}
+      />
     </div>
   );
 }

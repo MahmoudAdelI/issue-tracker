@@ -1,11 +1,9 @@
-import Paginations from "./components/Paginations";
+import Paginations from "./components/Pagination";
 type SearchParams = {
   searchParams: Promise<{ page: string }>;
 };
 export default async function Home({ searchParams }: SearchParams) {
   const { page } = await searchParams;
 
-  return (
-    <Paginations issuesCount={320} perPageIssues={10} currentPage={+page} />
-  );
+  return <h1>helloo world</h1>;
 }
