@@ -1,102 +1,46 @@
-import { IssueStatusBadge, Link } from "@/app/components";
-import prisma from "@/prisma/client";
-import { Table } from "@radix-ui/themes";
-import IssueActions from "./IssueActions";
-import { Issue, Status } from "@prisma/client";
-import NextLink from "next/link";
-import { RiArrowUpSLine } from "react-icons/ri";
 import Pagination from "@/app/components/Pagination";
+import prisma from "@/prisma/client";
+import { Status } from "@prisma/client";
+import IssueActions from "./IssueActions";
+import IssueTable, { columnNames, SearchParams } from "./IssueTable";
+import { Flex } from "@radix-ui/themes";
 
 export const dynamic = "force-dynamic"; //make the page dynamic instead of being an SSG page
 
-type SearchParams = {
-  searchParams: Promise<{ status: Status; orderBy: keyof Issue; page: string }>;
+type Props = {
+  searchParams: Promise<SearchParams>;
 };
-export default async function IssuesPage({ searchParams }: SearchParams) {
-  const columns: {
-    lable: string;
-    value: keyof Issue;
-    className?: string;
-  }[] = [
-    { lable: "Issue", value: "title" },
-    { lable: "Status", value: "status", className: "hidden md:table-cell" },
-    { lable: "Created", value: "createdAt", className: "hidden md:table-cell" },
-  ];
+export default async function IssuesPage({ searchParams }: Props) {
   const SearchParams = await searchParams;
 
   const validStatuses = Object.values(Status);
   const status = validStatuses.includes(SearchParams.status)
     ? SearchParams.status
     : undefined;
-  const where = {
-    status: status,
-  };
-  const orderBy = columns
-    .map((column) => column.value)
-    .includes(SearchParams.orderBy)
+  const orderBy = columnNames.includes(SearchParams.orderBy)
     ? {
         [SearchParams.orderBy]: "asc",
       }
     : undefined;
   const currentPage = +SearchParams.page || 1;
   const perPageIssues = 5;
-  const issuesCount = await prisma.issue.count({ where });
+  const issuesCount = await prisma.issue.count({ where: { status } });
   const issues = await prisma.issue.findMany({
-    where,
+    where: { status },
     orderBy,
     skip: (currentPage - 1) * perPageIssues,
     take: perPageIssues,
   });
 
   return (
-    <div>
+    <Flex direction="column" gap="3">
       <IssueActions />
-      <Table.Root variant="surface">
-        <Table.Header>
-          <Table.Row>
-            {columns.map((column) => (
-              <Table.ColumnHeaderCell
-                key={column.value}
-                className={column.className}
-              >
-                <NextLink
-                  href={{
-                    query: { ...SearchParams, orderBy: column.value },
-                  }}
-                >
-                  {column.lable}
-                </NextLink>
-                {column.value === SearchParams.orderBy && (
-                  <RiArrowUpSLine className="inline" />
-                )}
-              </Table.ColumnHeaderCell>
-            ))}
-          </Table.Row>
-        </Table.Header>
-        <Table.Body>
-          {issues.map((issue) => (
-            <Table.Row key={issue.id}>
-              <Table.Cell>
-                <Link href={`/issues/${issue.id}`}>{issue.title}</Link>
-                <div className="md:hidden">
-                  <IssueStatusBadge status={issue.status} />
-                </div>
-              </Table.Cell>
-              <Table.Cell className="hidden md:table-cell">
-                <IssueStatusBadge status={issue.status} />
-              </Table.Cell>
-              <Table.Cell className="hidden md:table-cell">
-                {issue.createdAt.toDateString()}
-              </Table.Cell>
-            </Table.Row>
-          ))}
-        </Table.Body>
-      </Table.Root>
+      <IssueTable searchParams={SearchParams} issues={issues} />
       <Pagination
         issuesCount={issuesCount}
         perPageIssues={perPageIssues}
         currentPage={currentPage}
       />
-    </div>
+    </Flex>
   );
 }
