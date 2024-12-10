@@ -1,11 +1,10 @@
 import Pagination from "@/app/components/Pagination";
 import prisma from "@/prisma/client";
 import { Status } from "@prisma/client";
+import { Flex } from "@radix-ui/themes";
+import { Metadata } from "next";
 import IssueActions from "./IssueActions";
 import IssueTable, { columnNames, SearchParams } from "./IssueTable";
-import { Flex } from "@radix-ui/themes";
-
-export const dynamic = "force-dynamic"; //make the page dynamic instead of being an SSG page
 
 type Props = {
   searchParams: Promise<SearchParams>;
@@ -44,3 +43,9 @@ export default async function IssuesPage({ searchParams }: Props) {
     </Flex>
   );
 }
+
+export const dynamic = "force-dynamic"; //make the page dynamic instead of being an SSG page
+export const metadata: Metadata = {
+  title: "Issue Tracker - Issue List",
+  description: "View all project issues",
+};

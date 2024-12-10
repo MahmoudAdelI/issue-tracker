@@ -4,12 +4,8 @@ import { Status } from "@prisma/client";
 import IssueChart from "./IssueChart";
 import { Flex, Grid } from "@radix-ui/themes";
 import LatestIssues from "./LatestIssues";
+import { Metadata } from "next";
 export default async function Home() {
-  // const open = await prisma.issue.count({ where: { status: "OPEN" } });
-  // const closed = await prisma.issue.count({ where: { status: "CLOSED" } });
-  // const inProgress = await prisma.issue.count({
-  //   where: { status: "IN_PROGRESS" },
-  // });
   const issueCounts = await prisma.issue.groupBy({
     by: ["status"],
     _count: {
@@ -24,7 +20,6 @@ export default async function Home() {
   issueCounts.forEach((item) => {
     counts[item.status] = item._count.status;
   });
-  console.log(counts);
   return (
     <Grid columns={{ initial: "1", md: "2" }} gap="5">
       <Flex direction="column" gap="5">
@@ -43,3 +38,8 @@ export default async function Home() {
     </Grid>
   );
 }
+
+export const metadata: Metadata = {
+  title: "Issue Tracker - Dashboard",
+  description: "View a summary of project issues",
+};
