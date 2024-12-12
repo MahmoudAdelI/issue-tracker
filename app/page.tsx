@@ -38,6 +38,7 @@ export default async function Home() {
     </Grid>
   );
 }
+export const dynamic = "force-dynamic"; //make the page dynamic instead of being an SSG page
 
 export const metadata: Metadata = {
   title: "Issue Tracker - Dashboard",
