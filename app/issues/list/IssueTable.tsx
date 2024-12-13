@@ -17,7 +17,7 @@ type Props = {
 };
 export default function IssueTable({ searchParams, issues }: Props) {
   return (
-    <Table.Root variant="surface">
+    <Table.Root variant="surface" layout="fixed">
       <Table.Header>
         <Table.Row>
           {columns.map((column) => (

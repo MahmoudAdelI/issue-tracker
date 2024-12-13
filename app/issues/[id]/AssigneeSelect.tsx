@@ -27,7 +27,11 @@ export default function AssigneeSelect({ issue }: { issue: Issue }) {
         defaultValue={issue.assignedToUserId || "null"}
         onValueChange={assignIssue}
       >
-        <Select.Trigger placeholder="Assign..." variant="soft" />
+        <Select.Trigger
+          placeholder="Assign..."
+          variant="surface"
+          color="gray"
+        />
         <Select.Content variant="soft">
           <Select.Group>
             <Select.Label>Suggestions</Select.Label>
