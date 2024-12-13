@@ -1,9 +1,6 @@
-import { IssueStatusBadge } from "@/app/components";
+import { IssueStatusBadge, Link } from "@/app/components";
+import { Issue, Status } from "@prisma/client";
 import { Table } from "@radix-ui/themes";
-import { Link } from "@/app/components";
-import { RiArrowUpSLine } from "react-icons/ri";
-import NextLink from "next/link";
-import { Status, Issue } from "@prisma/client";
 import IssueTableHeader from "./IssueTableHeader";
 
 export type SearchParams = {

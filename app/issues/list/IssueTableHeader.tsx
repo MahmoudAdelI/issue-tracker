@@ -64,6 +64,6 @@ const columns: {
   className?: string;
 }[] = [
   { label: "Issue", value: "title" },
-  { label: "Status", value: "status", className: "hidden md:table-cell" },
-  { label: "Created", value: "createdAt", className: "hidden md:table-cell" },
+  { label: "Status", value: "status" },
+  { label: "Created", value: "createdAt" },
 ];

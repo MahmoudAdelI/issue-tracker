@@ -1,10 +1,14 @@
+import authOptions from "@/app/auth/authOptions";
 import { IssueStatusBadge } from "@/app/components";
 import { Issue } from "@prisma/client";
-import { Heading, Flex, Card, Text, Box } from "@radix-ui/themes";
+import { Box, Card, Flex, Heading, Text } from "@radix-ui/themes";
+import { getServerSession } from "next-auth";
 import ReactMarkdown from "react-markdown";
 import IssueStatusSelect from "./IssueStatusSelect";
 
-export default function IssueDetails({ issue }: { issue: Issue }) {
+export default async function IssueDetails({ issue }: { issue: Issue }) {
+  const session = await getServerSession(authOptions);
+
   return (
     <>
       <Heading>{issue.title}</Heading>
@@ -15,7 +19,7 @@ export default function IssueDetails({ issue }: { issue: Issue }) {
             <Text>{issue.createdAt.toDateString()}</Text>
           </Flex>
         </Box>
-        <IssueStatusSelect issue={issue} />
+        {session && <IssueStatusSelect issue={issue} />}
       </Flex>
       <Card className="prose max-w-full" mt="4">
         <ReactMarkdown>{issue.description}</ReactMarkdown>
