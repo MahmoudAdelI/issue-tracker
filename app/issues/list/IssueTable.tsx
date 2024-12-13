@@ -4,11 +4,13 @@ import { Link } from "@/app/components";
 import { RiArrowUpSLine } from "react-icons/ri";
 import NextLink from "next/link";
 import { Status, Issue } from "@prisma/client";
+import IssueTableHeader from "./IssueTableHeader";
 
 export type SearchParams = {
   status: Status;
   orderBy: keyof Issue;
   page: string;
+  order: "asc" | "desc";
 };
 
 type Props = {
@@ -18,27 +20,7 @@ type Props = {
 export default function IssueTable({ searchParams, issues }: Props) {
   return (
     <Table.Root variant="surface" layout="fixed">
-      <Table.Header>
-        <Table.Row>
-          {columns.map((column) => (
-            <Table.ColumnHeaderCell
-              key={column.value}
-              className={column.className}
-            >
-              <NextLink
-                href={{
-                  query: { ...searchParams, orderBy: column.value },
-                }}
-              >
-                {column.lable}
-              </NextLink>
-              {column.value === searchParams.orderBy && (
-                <RiArrowUpSLine className="inline" />
-              )}
-            </Table.ColumnHeaderCell>
-          ))}
-        </Table.Row>
-      </Table.Header>
+      <IssueTableHeader searchParams={searchParams} />
       <Table.Body>
         {issues.map((issue) => (
           <Table.Row key={issue.id}>
