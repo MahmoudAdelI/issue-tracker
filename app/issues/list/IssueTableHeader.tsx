@@ -1,10 +1,9 @@
 "use client";
-import { Issue } from "@prisma/client";
 import { Table } from "@radix-ui/themes";
-import React, { useState } from "react";
-import { RiArrowUpSLine, RiArrowDownSLine } from "react-icons/ri";
 import NextLink from "next/link";
-import { SearchParams } from "./IssueTable";
+import { useState } from "react";
+import { RiArrowDownSLine, RiArrowUpSLine } from "react-icons/ri";
+import { columns, SearchParams } from "./IssueTable";
 
 export default function IssueTableHeader({
   searchParams,
@@ -57,13 +56,3 @@ export default function IssueTableHeader({
     </Table.Header>
   );
 }
-
-const columns: {
-  label: string;
-  value: keyof Issue;
-  className?: string;
-}[] = [
-  { label: "Issue", value: "title" },
-  { label: "Status", value: "status" },
-  { label: "Created", value: "createdAt" },
-];

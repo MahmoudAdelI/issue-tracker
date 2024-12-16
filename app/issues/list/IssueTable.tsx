@@ -39,13 +39,13 @@ export default function IssueTable({ searchParams, issues }: Props) {
     </Table.Root>
   );
 }
-const columns: {
-  lable: string;
+export const columns: {
+  label: string;
   value: keyof Issue;
   className?: string;
 }[] = [
-  { lable: "Issue", value: "title" },
-  { lable: "Status", value: "status", className: "hidden md:table-cell" },
-  { lable: "Created", value: "createdAt", className: "hidden md:table-cell" },
+  { label: "Issue", value: "title" },
+  { label: "Status", value: "status", className: "hidden md:table-cell" },
+  { label: "Created", value: "createdAt", className: "hidden md:table-cell" },
 ];
 export const columnNames = columns.map((column) => column.value);
