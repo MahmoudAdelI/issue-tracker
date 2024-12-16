@@ -12,15 +12,19 @@ export default async function IssueDetails({ issue }: { issue: Issue }) {
   return (
     <>
       <Heading>{issue.title}</Heading>
-      <Flex justify="between" align="center">
-        <Box my="2">
+      <div className="flex flex-col md:flex-row md:justify-between md:items-center">
+        <Box my="2" className="mr-auto">
           <Flex gap="3">
             <IssueStatusBadge status={issue.status} />
             <Text>{issue.createdAt.toDateString()}</Text>
           </Flex>
         </Box>
-        {session && <IssueStatusSelect issue={issue} />}
-      </Flex>
+        {session && (
+          <Box className="ml-auto">
+            <IssueStatusSelect issue={issue} />
+          </Box>
+        )}
+      </div>
       <Card className="prose max-w-full" mt="4">
         <ReactMarkdown>{issue.description}</ReactMarkdown>
       </Card>
