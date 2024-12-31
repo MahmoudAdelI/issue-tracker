@@ -1,10 +1,10 @@
 import prisma from "@/prisma/client";
-import IssueSummary from "./IssueSummary";
 import { Status } from "@prisma/client";
-import IssueChart from "./IssueChart";
 import { Flex, Grid } from "@radix-ui/themes";
-import LatestIssues from "./LatestIssues";
 import { Metadata } from "next";
+import IssueChart from "./components/IssueChart/IssueChart";
+import IssueSummary from "./components/IssueSummary/IssueSummary";
+import LatestIssues from "./components/LatestIssues/LatestIssues";
 export default async function Home() {
   const issueCounts = await prisma.issue.groupBy({
     by: ["status"],
@@ -15,10 +15,16 @@ export default async function Home() {
       status: { in: [Status.OPEN, Status.CLOSED, Status.IN_PROGRESS] },
     },
   });
-
   const counts: Record<Status, number> = { OPEN: 0, IN_PROGRESS: 0, CLOSED: 0 };
   issueCounts.forEach((item) => {
     counts[item.status] = item._count.status;
+  });
+  const issues = await prisma.issue.findMany({
+    orderBy: { createdAt: "desc" },
+    take: 5,
+    include: {
+      assignedToUser: true,
+    },
   });
   return (
     <Grid columns={{ initial: "1", md: "2" }} gap="5">
@@ -34,7 +40,7 @@ export default async function Home() {
           inProgress={counts.IN_PROGRESS}
         />
       </Flex>
-      <LatestIssues />
+      <LatestIssues issues={issues} />
     </Grid>
   );
 }

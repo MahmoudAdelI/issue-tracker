@@ -1,10 +1,13 @@
-import Pagination from "@/app/components/Pagination";
 import prisma from "@/prisma/client";
 import { Status } from "@prisma/client";
 import { Flex } from "@radix-ui/themes";
 import { Metadata } from "next";
-import IssueActions from "./IssueActions";
-import IssueTable, { columnNames, SearchParams } from "./IssueTable";
+import { IssueActions } from "./_components";
+import IssueTable, {
+  columnNames,
+  SearchParams,
+} from "./_components/IssueTable/IssueTable";
+import Pagination from "./_components/Pagination/Pagination";
 
 type Props = {
   searchParams: Promise<SearchParams>;

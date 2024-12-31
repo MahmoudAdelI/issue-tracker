@@ -11,13 +11,17 @@ import {
   LineChart,
 } from "recharts";
 
-type Props = {
+export type IssueChartProps = {
   open: number;
   inProgress: number;
   closed: number;
 };
 
-export default function IssueChart({ open, inProgress, closed }: Props) {
+export default function IssueChart({
+  open,
+  inProgress,
+  closed,
+}: IssueChartProps) {
   const data = [
     { label: "Open", value: open },
     { label: "In-progress", value: inProgress },
@@ -25,7 +29,7 @@ export default function IssueChart({ open, inProgress, closed }: Props) {
   ];
 
   return (
-    <Card>
+    <Card data-testid="chart">
       <ResponsiveContainer width="100%" height={350}>
         <BarChart
           width={80}

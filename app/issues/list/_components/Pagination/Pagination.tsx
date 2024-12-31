@@ -8,7 +8,7 @@ import {
   HiOutlineChevronRight,
 } from "react-icons/hi";
 
-type Props = {
+export type PaginationProps = {
   issuesCount: number;
   perPageIssues: number;
   currentPage: number;
@@ -17,7 +17,7 @@ export default function Pagination({
   issuesCount,
   perPageIssues,
   currentPage,
-}: Props) {
+}: PaginationProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const pageCount = Math.ceil(issuesCount / perPageIssues);
@@ -35,6 +35,7 @@ export default function Pagination({
       </Text>
 
       <Button
+        data-testid="first-button"
         variant="soft"
         color="gray"
         disabled={currentPage === 1}
@@ -44,6 +45,7 @@ export default function Pagination({
       </Button>
 
       <Button
+        data-testid="prev-button"
         variant="soft"
         color="gray"
         disabled={currentPage === 1}
@@ -53,6 +55,7 @@ export default function Pagination({
       </Button>
 
       <Button
+        data-testid="next-button"
         variant="soft"
         color="gray"
         disabled={currentPage === pageCount}
@@ -62,6 +65,7 @@ export default function Pagination({
       </Button>
 
       <Button
+        data-testid="last-button"
         variant="soft"
         color="gray"
         disabled={currentPage === pageCount}

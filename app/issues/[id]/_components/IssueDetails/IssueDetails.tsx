@@ -1,14 +1,14 @@
-import authOptions from "@/app/auth/authOptions";
 import { IssueStatusBadge } from "@/app/components";
 import { Issue } from "@prisma/client";
 import { Box, Card, Flex, Heading, Text } from "@radix-ui/themes";
-import { getServerSession } from "next-auth";
+import { Session } from "next-auth";
 import ReactMarkdown from "react-markdown";
-import IssueStatusSelect from "./IssueStatusSelect";
-
-export default async function IssueDetails({ issue }: { issue: Issue }) {
-  const session = await getServerSession(authOptions);
-
+import { IssueStatusSelect } from "..";
+type IssueDetailsProps = {
+  issue: Issue;
+  session: Session | null;
+};
+export default function IssueDetails({ issue, session }: IssueDetailsProps) {
   return (
     <>
       <Heading>{issue.title}</Heading>
@@ -19,8 +19,9 @@ export default async function IssueDetails({ issue }: { issue: Issue }) {
             <Text>{issue.createdAt.toDateString()}</Text>
           </Flex>
         </Box>
+
         {session && (
-          <Box className="ml-auto">
+          <Box className="ml-auto" data-testid="selectStatus">
             <IssueStatusSelect issue={issue} />
           </Box>
         )}

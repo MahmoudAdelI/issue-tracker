@@ -13,7 +13,9 @@ const config: Config = {
   // Add more setup options before each test is run
   setupFilesAfterEnv: ["<rootDir>/jest.setup.ts"],
   moduleNameMapper: {
-    "^@/(.*)$": "<rootDir>/src/$1", // Map @/ to ./src/
+    "^@/(.*)$": "<rootDir>/$1", // Map @/ to ./src/
+    "^react-simplemde-editor$":
+      "<rootDir>/__mocks__/react-simplemde-editor.tsx",
   },
   clearMocks: true,
 };

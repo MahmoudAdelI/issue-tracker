@@ -70,7 +70,7 @@ function AuthStatus() {
     );
 
   return (
-    <Box>
+    <Box data-testid="avatar">
       <DropdownMenu.Root>
         <DropdownMenu.Trigger>
           <Avatar

@@ -1,16 +1,14 @@
-import prisma from "@/prisma/client";
+import { Issue, User } from "@prisma/client";
 import { Avatar, Card, Flex, Heading, Table } from "@radix-ui/themes";
 import Link from "next/link";
-import { IssueStatusBadge } from "./components";
+import { IssueStatusBadge } from "..";
+export type LatestIssuesProps = Issue & { assignedToUser: User | null };
 
-export default async function LatestIssues() {
-  const issues = await prisma.issue.findMany({
-    orderBy: { createdAt: "desc" },
-    take: 5,
-    include: {
-      assignedToUser: true,
-    },
-  });
+export default function LatestIssues({
+  issues,
+}: {
+  issues: LatestIssuesProps[];
+}) {
   return (
     <Card>
       <Heading size="4" mb="3">

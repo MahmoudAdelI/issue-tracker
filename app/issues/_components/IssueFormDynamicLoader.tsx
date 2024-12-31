@@ -1,17 +1,15 @@
 //This WrapperComponent to allow dynamic import inside a server component
-"use client" 
-import dynamic from 'next/dynamic';
-import IssueFormSkeleton from '@/app/issues/_components/IssueFormSkeleton';
-import { Issue } from '@prisma/client';
+"use client";
+import dynamic from "next/dynamic";
+import IssueFormSkeleton from "@/app/issues/_components/IssueFormSkeleton";
+import { Issue } from "@prisma/client";
 const IssueForm = dynamic(
-  () => import('@/app/issues/_components/IssueForm'),
+  () => import("@/app/issues/_components/IssueForm/IssueForm"),
   {
     ssr: false,
-    loading: ()=> <IssueFormSkeleton />
+    loading: () => <IssueFormSkeleton />,
   }
-)
-export default function IssueFormDynamicLoader({issue}: {issue?: Issue}) {
-  return (
-    <IssueForm issue={issue} />
-  )
+);
+export default function IssueFormDynamicLoader({ issue }: { issue?: Issue }) {
+  return <IssueForm issue={issue} />;
 }
