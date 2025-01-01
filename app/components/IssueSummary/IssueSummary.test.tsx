@@ -8,7 +8,7 @@ const issueSummaryProps: IssueSummaryProps = {
 const testLink = (label: string, href: string) => {
   render(<IssueSummary {...issueSummaryProps} />);
   const link = screen.getByText(label);
-  expect(link.getAttribute("href")).toBe(href);
+  expect(link).toHaveAttribute("href", href);
 };
 describe("IssueSummary", () => {
   it("should render", () => {

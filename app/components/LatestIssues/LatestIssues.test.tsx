@@ -1,7 +1,7 @@
+import prisma from "@/prisma/client";
+import { mockIssues } from "@/tests/mocks/mockedIssue";
 import { render } from "@testing-library/react";
 import LatestIssues, { LatestIssuesProps } from "./LatestIssues";
-import { mockIssues } from "@/__mocks__/mockedIssue";
-import prisma from "@/prisma/client";
 const latestIssuesProps: LatestIssuesProps[] = [
   {
     title: "Issue 1",

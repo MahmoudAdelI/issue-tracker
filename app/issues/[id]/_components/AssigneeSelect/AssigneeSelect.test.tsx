@@ -1,5 +1,5 @@
-import { mockIssue } from "@/__mocks__/mockedIssue";
-import { mockUsers } from "@/__mocks__/mockedUsers";
+import { mockIssue } from "@/tests/mocks/mockedIssue";
+import { mockUsers } from "@/tests/mocks/mockedUsers";
 import { Issue } from "@prisma/client";
 import { Theme } from "@radix-ui/themes";
 import { useQuery } from "@tanstack/react-query";

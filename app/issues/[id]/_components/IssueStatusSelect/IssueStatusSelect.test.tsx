@@ -1,9 +1,8 @@
-import { Issue } from "@prisma/client";
-import { act, fireEvent, render, screen } from "@testing-library/react";
-import IssueStatusSelect from "./IssueStatusSelect";
+import { mockIssue } from "@/tests/mocks/mockedIssue";
 import { Theme } from "@radix-ui/themes";
+import { act, fireEvent, render, screen } from "@testing-library/react";
 import axios from "axios";
-import { mockIssue } from "@/__mocks__/mockedIssue";
+import IssueStatusSelect from "./IssueStatusSelect";
 
 it("should render ", async () => {
   render(
@@ -12,14 +11,14 @@ it("should render ", async () => {
     </Theme>
   );
 
-  const SelectElement = screen.getByRole("combobox");
-  expect(SelectElement).toBeInTheDocument();
-  fireEvent.click(SelectElement);
+  const selectElement = screen.getByRole("combobox");
+  expect(selectElement).toBeInTheDocument();
+  fireEvent.click(selectElement);
 
-  const ClosedOption = screen.getByText("Closed");
-  expect(ClosedOption).toBeInTheDocument();
+  const closedOption = screen.getByText("Closed");
+  expect(closedOption).toBeInTheDocument();
   await act(async () => {
-    fireEvent.click(ClosedOption);
+    fireEvent.click(closedOption);
   });
 
   expect(axios.patch).toHaveBeenCalledWith(`/api/issues/${mockIssue.id}`, {

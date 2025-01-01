@@ -1,12 +1,15 @@
-import { mockIssue } from "@/__mocks__/mockedIssue";
-import { mockSession } from "@/__mocks__/mockedSession";
+import { mockIssue } from "@/tests/mocks/mockedIssue";
+import { mockSession } from "@/tests/mocks/mockedSession";
 import { Theme } from "@radix-ui/themes";
 import { fireEvent, render, screen } from "@testing-library/react";
 import IssueDetails from "./IssueDetails";
 
 // mock react-markdown
 jest.mock("react-markdown", () => {
-  return ({ children }: { children: React.ReactNode }) => <div>{children}</div>;
+  const MockReactMarkdown = ({ children }: { children: React.ReactNode }) => (
+    <div>{children}</div>
+  );
+  return MockReactMarkdown;
 });
 
 describe("IssueDetails", () => {

@@ -3,7 +3,7 @@ import { Theme } from "@radix-ui/themes";
 import { render } from "@testing-library/react";
 import { SearchParams } from "./_components/IssueTable/IssueTable";
 import IssuesPage from "./page";
-import { mockIssues } from "@/__mocks__/mockedIssue";
+import { mockIssues } from "@/tests/mocks/mockedIssue";
 
 const generateSearchParams = async (params: SearchParams) => params;
 

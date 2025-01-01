@@ -9,4 +9,6 @@ const MockIssueStatusFilter = () => (
 );
 it("should render", () => {
   render(<MockIssueStatusFilter />);
+  const issueStatusFilter = screen.getByRole("combobox");
+  expect(issueStatusFilter).toBeInTheDocument();
 });

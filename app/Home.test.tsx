@@ -1,4 +1,4 @@
-import { mockIssues } from "@/__mocks__/mockedIssue";
+import { mockIssues } from "@/tests/mocks/mockedIssue";
 import prisma from "@/prisma/client";
 import { render, screen } from "@testing-library/react";
 import Home from "./page";

@@ -1,6 +1,6 @@
 import { act, fireEvent, render, screen } from "@testing-library/react";
-import DeleteIssueButton from "./DeleteIssueButton";
 import axios from "axios";
+import DeleteIssueButton from "./DeleteIssueButton";
 
 const deleteIssue = async () => {
   const deletButton = screen.getByText("Delete Issue");

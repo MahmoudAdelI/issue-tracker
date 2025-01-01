@@ -1,4 +1,4 @@
-import { mockIssue } from "@/__mocks__/mockedIssue";
+import { mockIssue } from "@/tests/mocks/mockedIssue";
 import { act, fireEvent, render, screen } from "@testing-library/react";
 import axios from "axios";
 import IssueForm from "./IssueForm";

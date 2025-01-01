@@ -1,15 +1,7 @@
 "use client";
 
 import { Card } from "@radix-ui/themes";
-import {
-  Bar,
-  BarChart,
-  ResponsiveContainer,
-  XAxis,
-  YAxis,
-  Cell,
-  LineChart,
-} from "recharts";
+import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
 
 export type IssueChartProps = {
   open: number;

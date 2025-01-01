@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import NewIssuePage from "./page";
 import { Theme } from "@radix-ui/themes";
-import { mockIssue } from "@/__mocks__/mockedIssue";
+import { mockIssue } from "@/tests/mocks/mockedIssue";
 import prisma from "@/prisma/client";
 
 describe("EditIssuePage", () => {
