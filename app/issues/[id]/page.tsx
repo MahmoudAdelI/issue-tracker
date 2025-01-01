@@ -15,7 +15,7 @@ type Props = {
   params: Promise<{ id: string }>;
 };
 
-export const fetchIssue = cache((issueId: number) =>
+const fetchIssue = cache((issueId: number) =>
   prisma.issue.findUnique({ where: { id: issueId } })
 );
 
